@@ -70,3 +70,22 @@ def get_today_forecast():
             })
 
     return today_forecast
+
+
+def build_weather_context(forecast_list):
+    """
+    今日の予報リストを、AIに渡しやすいテキスト形式に変換する
+    """
+
+    if not forecast_list:
+        return "本日の予報データは取得できませんでした。"
+
+    lines = []
+    for item in forecast_list:
+        lines.append(
+            f"{item['time']} - 天気:{item['weather']} "
+            f"気温:{item['temp']}℃ 体感:{item['feels_like']}℃ "
+            f"湿度:{item['humidity']}% 風速:{item['wind']}m/s"
+        )
+
+    return "\n".join(lines)
